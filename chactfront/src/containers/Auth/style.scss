@@ -1,0 +1,30 @@
+@import "../../components/Style/foundation";
+.container{
+    @include flexbox;
+    @include size(1000px,100%);
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    .login{
+        //@include flexbox;
+        @include size(400px,400px);
+       
+        border: 1px solid #d4cdcd;
+        border-radius: 5px;
+        background: rgba(255,255,255,0.8);
+        .loginForm{
+            .formTitle{
+                font-weight: 600;
+            }
+            .user{
+                height: 30px;
+                .iconfont{
+                    @include size(16px,16px)
+                }
+            }
+            .password{
+                height: 30px;
+            }
+        }
+    }
+}

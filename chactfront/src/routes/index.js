@@ -1,9 +1,10 @@
-import Init from 'containers/index'
-import Help from 'containers/Help'
+import App from 'containers/index'
+import auth from './auth'
+import root from './root'
 export default {
-    path: '/',
-    component: Init,
-    indexRoute: {
-        component: Help,
-    }
-}
+  component: App,
+  childRoutes: [
+    auth,
+    root
+  ]
+};

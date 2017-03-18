@@ -7,6 +7,7 @@ import Immutable from 'immutable'
 import 'moment/locale/zh-cn';
 import configureStore from './store';
 import route from './routes';
+import 'antd/dist/antd.css';
 moment.locale('zh-cn');
 
 const store = configureStore(Immutable.Map());
