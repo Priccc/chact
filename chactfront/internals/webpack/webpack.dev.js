@@ -51,12 +51,7 @@ module.exports = require('./webpack.base')({
                     loader: 'style-loader',
                 },
                 {
-                    loader: 'css-loader',
-                    options: {
-                        modules: true,
-                        localIdentName: '[name]__[local]___[hash:base64:5]',
-                        importLoaders: 1
-                    }
+                    loader: 'css-loader'
                 },
                 {
                     loader: 'resolve-url-loader'

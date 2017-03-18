@@ -1,29 +1,90 @@
 @import "../../components/Style/foundation";
-.container{
+.container {
     @include flexbox;
-    @include size(1000px,100%);
+    @include size(1000px, 100%);
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    .login{
-        //@include flexbox;
-        @include size(400px,400px);
-       
-        border: 1px solid #d4cdcd;
-        border-radius: 5px;
-        background: rgba(255,255,255,0.8);
-        .loginForm{
-            .formTitle{
-                font-weight: 600;
-            }
-            .user{
+    .formCon {
+        text-align: center;
+        color: #6d6d6d;
+        .formTitle {
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+            font-weight: 600;
+        }
+        .formInfo {
+            @include flexbox;
+            position: relative;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+            padding: 0 60px;
+            .necessary{
+                position: absolute;
+                left: 45px;
                 height: 30px;
-                .iconfont{
-                    @include size(16px,16px)
+                line-height: 34px;
+                color: #ff1a47;
+            }
+            .iconfont {
+                display: inline-block;
+                @include size(30px, 30px);
+                line-height: 30px;
+                text-align: center;
+                font-size: 22px;
+            }
+            .formInfoR{
+                text-align: left;
+                .formInput {
+                    @include size(180px, 30px);
+                    line-height: 30px;
                 }
             }
-            .password{
-                height: 30px;
+            .formInfoR.onerror {
+                .formInput {
+                    border: 1px solid #f0d8da;
+                    background: #fff5f7;
+                }
+            }
+        }
+        .submitBtn {
+            @include size(130px, 35px);
+            margin: 40px;
+            background: #ebebeb;
+        }
+        .link {
+            @include flexbox;
+            justify-content: space-between;
+            padding: 10px 50px;
+            a:link,
+            a:visited {
+                color: #c5c5c5;
+            }
+            a:hover,
+            a:active {
+                color: #5b8bf6;
+            }
+        }
+    }
+    .login {
+        @include size(350px, 400px);
+        border: 1px solid #d4cdcd;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 5px 10px 18px 0 rgba(0, 0, 0, 0.14);
+    }
+    .register{
+        @include size(550px, 700px);
+        border: 1px solid #d4cdcd;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 5px 10px 18px 0 rgba(0, 0, 0, 0.14);
+        .formInfoR{
+            width: 300px;
+            .formInput{
+                width:280px !important;
             }
         }
     }

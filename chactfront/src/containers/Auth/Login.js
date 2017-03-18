@@ -1,36 +1,33 @@
 import React, { Component } from 'react';
-import CSSModules from 'react-css-modules';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Icon,Button } from 'antd';
-import styles from './style'
+import { Button ,Input ,Icon} from 'antd';
+import './style'
 
 class Login extends Component {
-    // componentWillMount() {
-    //     this.props.test();
-    // }
     render() {
         return (
-            <div styleName='login'>
-                <form action="" styleName='loginForm'>
-                    <h1 styleName='formTitle'>Login Form</h1>
-                        <div styleName='user'>
-                            <Icon type="user" />
-                            <input type="text" placeholder="Username" required="" ref="username" />
+            <div className='login'>
+                <form action="" className='formCon'>
+                    <h1 className='formTitle'>Login Form</h1>
+                    <div className='formInfo'>
+                        <Icon type="user" className='iconfont'/>
+                        <div className='formInfoR'>
+                            <Input type="text" placeholder="Username" ref="username" className='formInput' />
                         </div>
-                        <div styleName='password'>
-                            <Icon type="lock" />
-                            <input type="password" placeholder="Password" required="" ref="password" />
-                        </div>
-                        <div>
-                            <Button>Login</Button>
-                            <a href="#">Lost your password?</a>
-                            <a href="#">Register</a>
-                        </div>
-                    </form>
-                    <div>
-                        <a href="#"></a>
                     </div>
+                    <div className='formInfo'>
+                        <Icon type="lock" className='iconfont'/>
+                        <div className='formInfoR'>
+                            <Input type="password" placeholder="Password" ref="password" className='formInput' />
+                        </div>
+                    </div>
+                    <Button className='submitBtn'>Login</Button>
+                    <div className='link'>
+                        <a href="#">Lost password</a>
+                        <a href="#">Register</a>
+                    </div>
+                </form>
             </div>
         );
     }
@@ -43,5 +40,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CSSModules(Login, styles))
-// export default Help;
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
