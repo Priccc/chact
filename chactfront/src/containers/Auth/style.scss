@@ -49,6 +49,12 @@
                 }
             }
         }
+        .errorP{
+          padding:0 80px;
+          color: #ff1a47;
+          font-size: 12px;
+          text-align:right;
+        }
         .submitBtn {
             @include size(130px, 35px);
             margin: 40px;
@@ -76,7 +82,7 @@
         box-shadow: 5px 10px 18px 0 rgba(0, 0, 0, 0.14);
     }
     .register{
-        @include size(550px, 700px);
+        @include size(550px, 650px);
         border: 1px solid #d4cdcd;
         border-radius: 10px;
         background: rgba(255, 255, 255, 0.8);

@@ -9,7 +9,7 @@ import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 import configureStore from './store';
 import route from './routes';
-import './components/Style/iconfont/iconfont.css';
+// import './components/Style/iconfont/ic
 import 'antd/dist/antd.css';
 const store = configureStore(Immutable.Map());
 const history = syncHistoryWithStore(hashHistory, store, {

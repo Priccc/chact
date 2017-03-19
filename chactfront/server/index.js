@@ -11,7 +11,7 @@ setup(app, {
   outputPath: resolve(process.cwd(), 'dist'),
   publicPath: '/',
 });
-const port = argv.port || process.env.PORT || 8080;
+const port = argv.port || process.env.PORT || 8085;
 
 app.listen(port, (err) => {
   if (err) {
