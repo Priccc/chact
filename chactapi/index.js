@@ -6,7 +6,7 @@
  const routes = require('./routes');//路由配置
  const config = require('./config');//全局配置
 
- let port = process.env.PORT || 8888;
+ let port = process.env.PORT || 8086;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());// 调用bodyParser模块以便程序正确解析body传入值

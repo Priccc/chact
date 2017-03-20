@@ -17,7 +17,7 @@ router.post('/findByName',(req,res)=>{
         return res.json({success: false, result:{isExit: true}});
       }
     })
-    
+
 })
 
 // 注册账户
@@ -56,5 +56,8 @@ router.post('/login',(req,res) =>{
       }
     }
   })
+})
+router.get('/',(req,res)=>{
+  return res.json({message:'success'})
 })
 module.exports = router;

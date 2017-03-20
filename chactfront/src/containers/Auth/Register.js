@@ -137,12 +137,12 @@ class Register extends Component {
           Message.error('您提交的信息中有错误，请检查');
           return;
         }else{
-            this.props.requestSignup(JSON.stringify({username,password,sex,birthday,email,address})).then(()=>{
+            this.props.requestSignup({username,password,sex,birthday,email,address}).then(()=>{
                 Message.success('注册成功')
             }).catch(()=>{
                 Message.error('注册失败')
             })
-          
+
         }
 
     }
