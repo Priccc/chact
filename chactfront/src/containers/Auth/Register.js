@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button, Input, Radio, DatePicker ,Message} from 'antd';
 import './style';
+import { requestSignup } from 'actions/auth'
 const RadioGroup = Radio.Group;
 
 class Register extends Component {
@@ -21,7 +22,6 @@ class Register extends Component {
             confirmPassError:{state:false,msg:''},
             emailError:{state:false,msg:''},
         }
-        this.changeDate = this.changeDate.bind(this);
         this.disabledDate = this.disabledDate.bind(this);
         this.checkUsername = this.checkUsername.bind(this);
         this.checkPassword = this.checkPassword.bind(this);
@@ -29,9 +29,6 @@ class Register extends Component {
         this.checkEmail = this.checkEmail.bind(this);
         this.check=this.check.bind(this);
 
-    }
-    changeDate(date){
-      console.log(date.format('YYYY-MM-DD'));
     }
     disabledDate(date) {
         return date && date.valueOf() > Date.now();
@@ -129,18 +126,23 @@ class Register extends Component {
           username,password,confirmPass,sex,birthday,email,address,
           usernameError,passwordError,confirmPassError,emailError
         } = this.state;
-        console.log(username);
-        console.log(password);
-        console.log(confirmPass);
-        console.log(sex);
-        console.log(birthday);
-        console.log(email);
-        console.log(address);
+        // console.log(username);
+        // console.log(password);
+        // console.log(confirmPass);
+        // console.log(sex);
+        // console.log(birthday);
+        // console.log(email);
+        // console.log(address);
         if(usernameError.state || passwordError.state || confirmPassError.state || emailError.state){
           Message.error('您提交的信息中有错误，请检查');
           return;
         }else{
-          Message.success('注册成功');
+            this.props.requestSignup(JSON.stringify({username,password,sex,birthday,email,address})).then(()=>{
+                Message.success('注册成功')
+            }).catch(()=>{
+                Message.error('注册失败')
+            })
+          
         }
 
     }
@@ -222,7 +224,7 @@ function mapStateToProps(state) {
     return { app }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch)
+    return bindActionCreators({requestSignup}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register)

@@ -5,23 +5,21 @@ const router = express.Router();
 
 // 注册账户
 router.post('/signup', (req, res) => {
-  console.log(req.body.name);
-  console.log(req.body.password);
-  if (!req.body.name || !req.body.password) {
-    res.json({success: false, message: '请输入您的账号密码.'});
-  } else {
     var newUser = new User({
-      name: req.body.name,
-      password: req.body.password
+      username: req.body.username,
+      password: req.body.password,
+      sex:req.body.sex,
+      birthday:req.body.birthday,
+      email:req.body.email,
+      addresss:req.body.addresss
     });
     // 保存用户账号
     newUser.save((err) => {
       if (err) {
-        return res.json({success: false, message: '注册失败!'});
+        return res.json({success: false, result:{message: '注册失败!'}});
       }
-      res.json({success: true, message: '成功创建新用户!'});
+      res.json({success: true, result:{message: '成功创建新用户!'}});
     });
-  }
 });
 
 // 检查用户名与密码并生成一个accesstoken如果验证通过
