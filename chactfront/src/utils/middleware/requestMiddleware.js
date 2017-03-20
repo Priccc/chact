@@ -63,17 +63,7 @@ export default () => {
             };
             return new Promise((resolve, reject) => {
                 api((path,type,query) => {
-                     query = query || {}
-                    // const {time,env,err_id} = getState().get('query').toJS();
-                    // const query = {
-                    //     env,
-                    //     need_type: 0,
-                    //     condition: JSON.stringify({
-                    //         "log_source": "6",
-                    //         "error_id":err_id
-                    //     })
-                    // };
-                //    apiClient(Object.assign(query,{tname:`nginx_api_log_${date}`})).then(result => {
+                    query = query || {}
                     apiClient(path,type,query).then(result => {
                         resolveFn(result, resolve)
                     }).catch(result => {
