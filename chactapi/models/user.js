@@ -22,6 +22,9 @@ const UserSchema = new Schema({
     },
     address:{
         type:String
+    },
+    state:{
+        type:String
     }
 })
 

@@ -39,7 +39,7 @@ export function test(query) {
     return (dispatch, getState) => {
         return dispatch({
             types: [REQUEST, REQUEST_SUCCESS, REQUEST_FRAILURE],
-            api: action => action('user','get',{}),
+            api: action => action('/user','get',{}),
     })
     }
     

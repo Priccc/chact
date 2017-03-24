@@ -24,14 +24,13 @@ export default () => {
             const {
                 api,
                 types
-            } = action; // eslint-disable-line no-redeclare
+            } = action;
             if (!api) {
                 return next(action);
             }
             const [REQUEST, SUCCESS, FAILURE] = types;
             next(Object.assign(action, {
                 type: REQUEST,
-         //       query,
                 result: {
                     loading: true,
                     success: false

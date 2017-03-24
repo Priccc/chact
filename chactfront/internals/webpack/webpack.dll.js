@@ -18,7 +18,7 @@ module.exports = {
         vendor: vendors
     },
     output: {
-        path: 'dist',
+        path: path.resolve(process.cwd(), 'dist'),
         filename: 'js/lib/[name].dll.js',
         library: '[name]_[hash]',
     },

@@ -18,7 +18,11 @@ export default (path,type,query) => {
             } else if (response) {
                 result.status = response.status;
                 result.body = response.body;
-                resolve(result)
+                if(result.body.success){
+                    resolve(result.body.result)
+                }else{
+                    reject(result.body.result)
+                }
             }
         });
 

@@ -4,9 +4,6 @@ import Register from 'containers/Auth/Register'
 export default {
     path: 'auth',
     component: Auth,
-    indexRoute: {
-        component: Auth
-    },
     childRoutes: [{
         path: 'login',
         component: Login

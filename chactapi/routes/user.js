@@ -1,20 +1,20 @@
 const express = require('express');
-const User = require('../models/user');
+const UserModel = require('../models/user');
 const config = require('../config');
 const router = express.Router();
 
 //查询用户名是否存在
 router.post('/findByName',(req,res)=>{
-    User.findOne({
+    UserModel.findOne({
       'username':req.body.username
     },(err,user)=>{
       if(err){
         throw err;
       }
       if(!user){
-        return res.json({success: false, result:{isExit: false}});
+        return res.json({success: true, result:{isExit: false}});
       }else {
-        return res.json({success: false, result:{isExit: true}});
+        return res.json({success: true, result:{isExit: true}});
       }
     })
 
@@ -22,13 +22,14 @@ router.post('/findByName',(req,res)=>{
 
 // 注册账户
 router.post('/signup', (req, res) => {
-    var newUser = new User({
+    var newUser = new UserModel({
       username: req.body.username,
       password: req.body.password,
       sex:req.body.sex,
       birthday:req.body.birthday,
       email:req.body.email,
-      addresss:req.body.addresss
+      addresss:req.body.addresss,
+      state:'offline'
     });
     // 保存用户账号
     newUser.save((err) => {
@@ -40,7 +41,7 @@ router.post('/signup', (req, res) => {
 });
 //用户登录
 router.post('/login',(req,res) =>{
-  User.findOne({
+  UserModel.findOne({
     'username': req.body.username
   },(err,user)=>{
     if(err){
@@ -50,7 +51,8 @@ router.post('/login',(req,res) =>{
       return res.json({success: false, result:{message:'认证失败,用户不存在!'}});
     } else if(user){
       if(user.password == req.body.password){
-        return res.json({success: true, result:{message:'认证成功'}});
+        UserModel.update({_id:user._id},{$set:{state:'online'}},function(err){});
+        return res.json({success: true, result:{message:'认证成功',uid:user._id}});
       }else{
         return res.json({success: false, result:{message:'认证失败,密码错误!'}});
       }

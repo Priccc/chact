@@ -4,9 +4,6 @@ import { bindActionCreators } from 'redux';
 import './style'
 
 class Auth extends Component {
-    // componentWillMount() {
-    //     this.props.test();
-    // }
     render() {
         return (
             <div className='container'>
@@ -15,5 +12,4 @@ class Auth extends Component {
         );
     }
 }
-// export default Auth;
 export default Auth

@@ -6,9 +6,9 @@ import { test } from 'actions/test';
 import styles from './style'
 
 class Help extends Component {
-    componentWillMount() {
-        this.props.test();
-    }
+    // componentWillMount() {
+    //     this.props.test();
+    // }
     render() {
         return (
             <div>
@@ -26,4 +26,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CSSModules(Help, styles))
-// export default Help;
