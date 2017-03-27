@@ -1,24 +1,25 @@
 @import "../../components/Style/foundation";
 .container{
+    .theme1{@include theme(#595F7F,#E3E7EF,#5266D7,#F1F2F6);}
+    .theme2{@include theme(#7F595A,#FFEFE9,#DC8159,#F5F1F0);}
+    .theme3{@include theme(#42354C,#E1D6E9,#9F64A9,#EDE7F2);}
+    .theme4{@include theme(#3D6658,#D4E8D4,#19B983,#EDF4ED);}
+    .theme5{@include theme(#35434C,#4D6778,#0FBA9C,#EEF3F6);}
+    .theme6{@include theme(#1E1F29,#292A39,#2C8DFF,#F1F2F6);}
     .chart{
-        @include size(900px,600px);
+        @include size(100%,100%);
         @include flexbox;
-        overflow: hidden;
-        border: 1px solid #d4cdcd;
-        border-radius: 5px;
-        box-shadow: 5px 10px 18px 0 rgba(0, 0, 0, 0.14);
         .aside{
-            flex: 0 0 8%;
+            flex: 0 0 60px;
             @include flexbox;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            background: #494949;
-            padding: 40px 0;
+            padding: 15px 0;
             .photo{
                 display: block;
                 @include size(50px,50px);
-                border-radius: 5px;
+                border-radius: 50%;
             }
             .iconfont{
                 display: block;
@@ -28,16 +29,62 @@
                 line-height: 30px;
                 color: #8a8888;
                 &.active{
-                  color: #20da45;
+                  color: #af6fef;
                 }
             }
         }
         .left{
-            flex: 0 0 27%;
-            background: #fff;
-            .header{
+            flex: 0 0 240px;
+            .left-title{
+                height: 70px;
+                @include flexbox;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 20px;
+                font-size: 16px;
+                position: relative;
+                .iconfont{
+                    display: block;
+                    @include size(30px,30px);
+                    line-height: 30px;
+                    border-radius: 50%;
+                    background: #e3e4eb;
+                    cursor: pointer;
+                    &:hover{
+                        background: rgb(202,210,225);
+                    }
+                }
+                .setting{
+                    @keyframes mymove{
+                        0%{
+                            top:40px;
+                        }
+                        100%{
+                            top:60px;
+                        }
+                    }
+                    @include animation('mymove 0.3s linear');
+                    position: absolute;
+                    top:60px;
+                    right: 5px;
+                    padding: 10px 15px;
+                    background: #fff;
+                    font-size: 12px;
+                    box-shadow: 0 3px 14px 0 RGBA(0,0,0,.2);
+                    z-index: 999;
+                    border-radius: 4px;
+                    .setItem{
+                        height: 20px;
+                        line-height: 20px;
+                        cursor:pointer;
+                        .anticon{
+                            margin-right: 5px;
+                        }
+                    }
+                }
+            }
+            .search{
               @include flexbox;
-              margin: 15px 0;
               justify-content: center;
               align-items: center;
               .iconfont{
@@ -49,8 +96,33 @@
             }
         }
         .center{
-            flex: 0 0 65%;
-            background: #ebebeb;
+            flex: 1;
         }
     }
 }
+.changeTheme{
+    .title{
+        font-size: 16px;
+        padding: 10px;
+    }
+    .themeBox{
+        margin-bottom: 20px;
+        .themeItem{
+            display: inline-block;
+            @include size(50px,50px);
+            margin: 10px;
+            line-height: 150px;
+            text-align: center;
+            color: #333;
+            border: 3px solid transparent;
+            border-radius: 50%;
+            &:hover,&:active{
+                border: 3px solid #f5be6b;
+            }
+        }
+    } 
+}
+.activeTheme{
+    border: 3px solid #5788d9 !important;
+}
+
