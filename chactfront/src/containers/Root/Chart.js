@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Icon ,Input ,Modal} from 'antd';
+import {Menu,Icon ,Input ,Modal} from 'antd';
 import './style.scss'
 const Search = Input.Search;
+const SubMenu = Menu.SubMenu;
 
 class Chart extends Component {
     constructor(props){
@@ -13,8 +14,9 @@ class Chart extends Component {
         this.changeTheme = this.changeTheme.bind(this);
         this.showModal = this.showModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         this.state = {
-          condition:'message',
+          condition:'solution',
           showSetting: false,
           themeChange:false,
           theme:1
@@ -52,6 +54,9 @@ class Chart extends Component {
     handleChange(val){
       this.setState({condition:val});
     }
+    handleClick(e){
+ //     console.log('click ', e);
+    }
     render() {
       const { condition, showSetting, theme, themeChange} = this.state;
       const img = require('source/photo.jpg');
@@ -88,27 +93,56 @@ class Chart extends Component {
               }
             </div>
             <div className='search'>
-               <Search placeholder="搜索" style={{width: 230}} onSearch={value => console.log(value)}/>
+              <Search placeholder="搜索" style={{ width: 230 }} onSearch={value => console.log(value)} />
             </div>
-            
+            {
+              condition == 'message' ?
+                <div className='list'>
+                </div> :
+                <div className='list'>
+                  <Menu className='friend-list'
+                    onClick={this.handleClick}
+                    defaultSelectedKeys={['1']}
+                    defaultOpenKeys={['sub1']}
+                    mode="inline"
+                  >
+                    <SubMenu key="sub1" title={<span>我的好友</span>}>
+                      <Menu.Item key="5" className='item'>
+                          <img src={img} className='item-img' />
+                          <p>admin</p>
+                      </Menu.Item>
+                      <Menu.Item key="6"  className='item'>
+                          <img src={img} className='item-img' />
+                          <p>admin</p>
+                      </Menu.Item>
+                    </SubMenu>
+                    <SubMenu key="sub2" title={<span>我的群聊</span>}>
+                      <Menu.Item key="9" className='item'>Option 9</Menu.Item>
+                      <Menu.Item key="10" className='item'>Option 10</Menu.Item>
+                      <Menu.Item key="11" className='item'>Option 11</Menu.Item>
+                      <Menu.Item key="12" className='item'>Option 12</Menu.Item>
+                    </SubMenu>
+                  </Menu>
+                </div>
+            }
           </div>
           <div className='center'></div>
           <Modal visible={themeChange} width={455} closable footer={null} className='changeTheme'
-            onCancel={this.closeModal.bind(this,'themeChange')}>
+            onCancel={this.closeModal.bind(this, 'themeChange')}>
             <p className='title'>主题</p>
             <div className='themeBox'>
-              <span className={`themeItem${theme==1?' activeTheme':''}`} style={{background:'#E3E7EF'}}
-                onClick={this.changeTheme.bind(this,1)}>清凉蓝</span>
-              <span className={`themeItem${theme==2?' activeTheme':''}`} style={{background:'#FFEFE9'}}
-                onClick={this.changeTheme.bind(this,2)}>护眼橙</span>
-              <span className={`themeItem${theme==3?' activeTheme':''}`} style={{background:'#E1D6E9'}}
-                onClick={this.changeTheme.bind(this,3)}>浪漫紫</span>
-              <span className={`themeItem${theme==4?' activeTheme':''}`} style={{background:'#D4E8D4'}}
-                onClick={this.changeTheme.bind(this,4)}>清新绿</span>
-              <span className={`themeItem${theme==5?' activeTheme':''}`} style={{background:'#4D6778'}}
-                onClick={this.changeTheme.bind(this,5)}>深沉绿</span>
-              <span className={`themeItem${theme==6?' activeTheme':''}`} style={{background:'#292A39'}}
-                onClick={this.changeTheme.bind(this,6)}>高调黑</span>
+              <span className={`themeItem${theme == 1 ? ' activeTheme' : ''}`} style={{ background: '#E3E7EF' }}
+                onClick={this.changeTheme.bind(this, 1)}>清凉蓝</span>
+              <span className={`themeItem${theme == 2 ? ' activeTheme' : ''}`} style={{ background: '#FFEFE9' }}
+                onClick={this.changeTheme.bind(this, 2)}>护眼橙</span>
+              <span className={`themeItem${theme == 3 ? ' activeTheme' : ''}`} style={{ background: '#E1D6E9' }}
+                onClick={this.changeTheme.bind(this, 3)}>浪漫紫</span>
+              <span className={`themeItem${theme == 4 ? ' activeTheme' : ''}`} style={{ background: '#D4E8D4' }}
+                onClick={this.changeTheme.bind(this, 4)}>清新绿</span>
+              <span className={`themeItem${theme == 5 ? ' activeTheme' : ''}`} style={{ background: '#4D6778' }}
+                onClick={this.changeTheme.bind(this, 5)}>深沉绿</span>
+              <span className={`themeItem${theme == 6 ? ' activeTheme' : ''}`} style={{ background: '#292A39' }}
+                onClick={this.changeTheme.bind(this, 6)}>高调黑</span>
             </div>
           </Modal>
         </div>
@@ -116,11 +150,11 @@ class Chart extends Component {
     }
 }
 function mapStateToProps(state) {
-    const app = state.get('app');
-    return { app }
+  const app = state.get('app');
+  return { app }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch)
+  return bindActionCreators({}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chart)

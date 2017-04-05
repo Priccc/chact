@@ -40,7 +40,7 @@
                 @include flexbox;
                 justify-content: space-between;
                 align-items: center;
-                padding: 0 20px;
+                padding: 0 20px 0 24px;
                 font-size: 16px;
                 position: relative;
                 .iconfont{
@@ -93,6 +93,29 @@
                 font-size: 20px;
                 color: #d9d9d9;
               }
+            }
+            .list{
+                .item{
+                    padding: 5px 0;
+                    padding-left: 40px !important; 
+                    height:40px;
+                    line-height: 30px;
+                    overflow: hidden;
+                    .item-img{
+                        display: block;
+                        float: left;
+                        margin-right: 8px;
+                        @include size(30px,30px);
+                        border-radius: 50%;
+                    }
+                }
+                .friend-list{
+                    background: transparent;
+                    .ant-menu-submenu > .ant-menu {
+                        background-color: transparent;
+                    }
+
+                }
             }
         }
         .center{
