@@ -5,17 +5,30 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node index.js"
+    "start": "nodemon lib/index.js --exec babel-node --presets stage-3 --development",
+    "build": "babel lib -d dist --presets stage-3"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "jsonwebtoken": "^7.1.9",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "mongodb": "^2.2.24",
     "mongoose": "^4.9.0",
     "monk": "^4.0.0",
     "morgan": "^1.8.1",
+    "nodemon": "^1.11.0",
+    "socket.io": "^1.7.3"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "eslint": "^3.8.1",
+    "eslint-config-standard": "^6.2.0",
+    "eslint-plugin-promise": "^3.3.0",
+    "eslint-plugin-standard": "^2.0.1",
     "nodemon": "^1.11.0"
   }
 }

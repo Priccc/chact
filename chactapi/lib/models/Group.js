@@ -1,0 +1,36 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const GroupSchema = new Schema({
+    groupname: {
+        type:String,
+    },
+    messages : [{
+        type:Schema.Types.ObjectId,
+        ref: 'Message'
+    }],
+    created: { 
+        type: Date,
+        default: Date.now() 
+    }
+})
+GroupSchema.statics.getGroup = function(_id) {
+  return this.findById({ _id }).exec();
+};
+GroupSchema.statics.getGroupMessage = function(groupname) {
+  return this.findOne({ groupname })
+  .populate({
+    path: 'messages',
+    options: {
+      sort: { _id: -1 },
+      limit: 30,
+    },
+    populate: {
+      path: 'user',
+      select: 'username avatar',
+    },
+  })
+  .exec();
+};
+
+module.exports = mongoose.model('Group',GroupSchema);
