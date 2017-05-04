@@ -4,14 +4,15 @@ const Schema = mongoose.Schema;
 const GroupSchema = new Schema({
     groupname: {
         type:String,
+        unique:true
     },
     messages : [{
         type:Schema.Types.ObjectId,
         ref: 'Message'
     }],
-    created: { 
+    created: {
         type: Date,
-        default: Date.now() 
+        default: Date.now()
     }
 })
 GroupSchema.statics.getGroup = function(_id) {

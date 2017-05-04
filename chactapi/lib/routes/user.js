@@ -60,24 +60,24 @@ router.post('/login',(req,res) =>{
   })
 })
 router.post('/test',(req,res) =>{
- // return 
+ // return
 })
 
 //创建新群聊
 router.post('/createGroup',async (req,res) =>{
-  const user = UserModel.getUser(req.body.username);
-  // console.log(req.body.groupname);
-  // var newGroup = new GroupModel({
-  //   groupname: req.body.groupname,
-  // });
-  console.log(user)
-    // const user = UserModel.findOne({
-    //   'username':req.body.username
-    // })
-    // user.groups.push(newGroup);
-    // user.save();
-    // newGroup.save();
-    // return res.json({success:true,result:'true'})
+  const user = await UserModel.getUser(req.body.username);
+  if(user){
+    var newGroup = new GroupModel({
+      _id: req.body._id,
+      groupname: req.body.groupname,
+    });
+    user.groups.push(newGroup);
+    user.save();
+    newGroup.save();
+    return res.json({success:true,result:{message:'操作成功'}})
+  }else{
+    return res.json({success:true,result:{message:'操作失败'}})
+  }
 })
 router.get('/',(req,res)=>{
   return res.json({message:'success'})

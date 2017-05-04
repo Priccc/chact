@@ -24,14 +24,12 @@ const UserSchema = new Schema({
         type:String
     },
     groups: [{
-        type: Schema.Types.ObjectId, 
-        ref: 'Group' 
+        type: Schema.Types.ObjectId,
+        ref: 'Group'
     }]
 })
 UserSchema.statics.getUser = function(username) {
-  return this.findOne({ username },(err,user)=>{
-      console.log(user)
-  }).exec();
+  return this.findOne({ username }).exec();
 };
 UserSchema.statics.getUserGroup = function (username) {
     return this.findOne({username})
