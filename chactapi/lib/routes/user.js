@@ -67,16 +67,33 @@ router.post('/test',(req,res) =>{
 router.post('/createGroup',async (req,res) =>{
   const user = await UserModel.getUser(req.body.username);
   if(user){
-    var newGroup = new GroupModel({
-      _id: req.body._id,
-      groupname: req.body.groupname,
-    });
-    user.groups.push(newGroup);
-    user.save();
-    newGroup.save();
-    return res.json({success:true,result:{message:'操作成功'}})
+    if(req.body.action==1){
+      var newGroup = new GroupModel({
+        groupname: req.body.groupname,
+      });
+      try{
+        user.groups.push(newGroup);
+        user.save();
+        newGroup.save();
+        return res.json({success:true,result:{success_id:1000,message:'新建群聊成功'}})
+      }catch(err){
+        return res.json({success:true,result:{success_id:2000,message:'操作失败'}})
+      }
+    }else{
+      try{
+        if(user.groups.indexOf(req.body._id)==-1){
+          user.groups.push(req.body._id);
+          user.save();
+          return res.json({success:true,result:{success_id:1000,message:'加入群聊成功'}})
+        }else{
+          return res.json({success:false,result:{success_id:1001,message:'当前群聊已加入'}})
+        }
+      }catch(err){
+        return res.json({success:false,result:{success_id:2000,message:'操作失败'}})
+      }
+    }
   }else{
-    return res.json({success:true,result:{message:'操作失败'}})
+    return res.json({success:true,result:{success_id:2000,message:'操作失败'}})
   }
 })
 router.get('/',(req,res)=>{
