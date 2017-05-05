@@ -4,6 +4,7 @@
  const bodyParser = require('body-parser');// 解析body字段模块
  const morgan = require('morgan');//命令行log显示
  const mongoose = require('mongoose');
+ const router = express.Router();
  const routes = require('./routes');//路由配置
  const config = require('./config');//全局配置
  var server = require('http').Server(app);
@@ -27,15 +28,8 @@ app.use(bodyParser.json());// 调用bodyParser模块以便程序正确解析body
 app.use(morgan('dev'));// 命令行中显示程序运行日志,便于bug调试
 app.use(express.static(path.resolve(__dirname, '../public/'))); // 静态文件
 
-io.on( "connection", function( socket ){
-    console.log( "一个新连接" );
-});
-
-app.use('/api',routes);//路由传入
-
-// io.on('connect', (socket) => {
-//   controller(socket);
-// });
+app.use('/api',router);//路由传入
+routes(router,io);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database);//连接数据库
