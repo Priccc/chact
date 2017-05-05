@@ -29,9 +29,7 @@ const UserSchema = new Schema({
     }]
 });
 UserSchema.statics.getUser = function (username) {
-    return this.findOne({ username }, (err, user) => {
-        console.log(user);
-    }).exec();
+    return this.findOne({ username }).exec();
 };
 UserSchema.statics.getUserGroup = function (username) {
     return this.findOne({ username }).populate({ path: 'groups' }).exec();

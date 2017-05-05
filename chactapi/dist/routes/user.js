@@ -60,32 +60,59 @@ router.post('/login', (req, res) => {
     }
   });
 });
-router.post('/test', (req, res) => {
-  // return 
-});
-
-//创建新群聊
-router.post('/createGroup', (() => {
+//获取用户所有群聊的信息
+router.post('/getGroup', (() => {
   var _ref = _asyncToGenerator(function* (req, res) {
-    const user = UserModel.getUser(req.body.username);
-    // console.log(req.body.groupname);
-    var newGroup = new GroupModel({
-      groupname: req.body.groupname
-    });
-
-    // const user = UserModel.findOne({
-    //   'username':req.body.username
-    // })
-    user.groups.push(newGroup);
-    user.save();
-    newGroup.save();
-    return res.json({ success: true, result: 'true' });
+    // return
+    const group = yield UserModel.getUserGroup(req.body.username);
+    return res.json({ group });
   });
 
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
 })());
+
+//创建新群聊
+router.post('/createGroup', (() => {
+  var _ref2 = _asyncToGenerator(function* (req, res) {
+    const user = yield UserModel.getUser(req.body.username);
+    if (user) {
+      if (req.body.action == 1) {
+        var newGroup = new GroupModel({
+          groupname: req.body.groupname
+        });
+        try {
+          user.groups.push(newGroup);
+          user.save();
+          newGroup.save();
+          return res.json({ success: true, result: { success_id: 1000, message: '新建群聊成功' } });
+        } catch (err) {
+          return res.json({ success: true, result: { success_id: 2000, message: '操作失败' } });
+        }
+      } else {
+        try {
+          if (user.groups.indexOf(req.body._id) == -1) {
+            user.groups.push(req.body._id);
+            user.save();
+            return res.json({ success: true, result: { success_id: 1000, message: '加入群聊成功' } });
+          } else {
+            return res.json({ success: false, result: { success_id: 1001, message: '当前群聊已加入' } });
+          }
+        } catch (err) {
+          return res.json({ success: false, result: { success_id: 2000, message: '操作失败' } });
+        }
+      }
+    } else {
+      return res.json({ success: true, result: { success_id: 2000, message: '操作失败' } });
+    }
+  });
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+})());
+
 router.get('/', (req, res) => {
   return res.json({ message: 'success' });
 });

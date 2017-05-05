@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const GroupSchema = new Schema({
   groupname: {
-    type: String
+    type: String,
+    unique: true
   },
   messages: [{
     type: Schema.Types.ObjectId,

@@ -19,7 +19,7 @@ module.exports = require('./webpack.base')({
     vendor: ['react', 'react-dom', 'react-router', 'redux', 'react-redux', 'react-router-redux', 'moment', 'immutable', 'md5', 'lodash'],
   },
   output: {
-    publicPath: 'http://ubsrc.cdn.mioji.com/resource/',
+    publicPath: 'http://127.0.0.1:8086/',
     filename: 'js/[name].[hash:8].js',
     chunkFilename: 'js/[name].[chunkhash:8].js',
   },
@@ -81,9 +81,13 @@ module.exports = require('./webpack.base')({
       names: ['manifest', 'vendor'],
       minChunks: 2,
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+    }),
+    new webpack.EnvironmentPlugin(['NODE_ENV']),
     new HtmlWebpackPlugin({
       template: 'index.html',
-      filename: path.resolve(cwd, 'server/views/index.html'),
+      filename: path.resolve(cwd, '../chactapi/public/index.html'),
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -104,7 +108,7 @@ module.exports = require('./webpack.base')({
       // 删除所有的注释
       comments: false,
       compress: {
-        // 在UglifyJs删除没有用到的代码时不输出警告  
+        // 在UglifyJs删除没有用到的代码时不输出警告
         warnings: false,
         // 删除所有的 `console` 语句
         // 还可以兼容ie浏览器

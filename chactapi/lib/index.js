@@ -28,7 +28,7 @@ app.use(morgan('dev'));// 命令行中显示程序运行日志,便于bug调试
 app.use(express.static(path.resolve(__dirname, '../public/'))); // 静态文件
 
 io.on( "connection", function( socket ){
-    console.log( "一个新连接" ); 
+    console.log( "一个新连接" );
 });
 
 app.use('/api',routes);//路由传入
