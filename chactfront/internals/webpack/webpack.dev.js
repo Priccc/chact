@@ -83,6 +83,12 @@ module.exports = require('./webpack.base')({
             filename: 'index.html',
             templateContent: templateContent()
         }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
     ]
 });

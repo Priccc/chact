@@ -9,9 +9,9 @@ router.use(function(req, res, next) {
 });
 
 // 用这个路由来做简单的测试(用get动词访问 http://localhost:8080/api)
-router.get('/',function(req, res) {
+/*router.get('/',function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
-});
+});*/
 
 router.use('/user', require('./user'));
 router.use('/group', require('./group'));

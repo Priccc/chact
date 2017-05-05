@@ -1,6 +1,6 @@
 import superagent from 'superagent';
 export default (path,type,query) => {
-    const url = `http://localhost:8087/api${path}`;
+    const url = `http://localhost:8086/api${path}`;
     const request = superagent[type](url);
     const actionHeader = {};
     const clientPromise = new Promise((resolve, reject) => {

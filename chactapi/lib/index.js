@@ -1,3 +1,4 @@
+ const path = require('path');
  const express = require('express');
  const app = express();
  const bodyParser = require('body-parser');// 解析body字段模块
@@ -15,6 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());// 调用bodyParser模块以便程序正确解析body传入值
 
 app.use(morgan('dev'));// 命令行中显示程序运行日志,便于bug调试
+console.log(__dirname)
+app.use(express.static(path.resolve(__dirname, '../public/'))); // 静态文件
 
 app.use('/api',routes);//路由传入
 

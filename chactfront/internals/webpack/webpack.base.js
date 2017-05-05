@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const cwd = process.cwd();
 const NODE_ENV = process.env.NODE_ENV;
 const isDev = NODE_ENV === 'development';
@@ -10,7 +11,7 @@ module.exports = options => ({
     entry: options.entry,
     output: {
         publicPath: '/',
-        path: path.resolve(cwd, 'dist'),
+        path: path.resolve(cwd, '../chactapi/public'),
         filename: 'js/[name].[hash:5].js',
         chunkFilename: 'js/chunk.[chunkhash:5].js',
     },
@@ -69,6 +70,9 @@ module.exports = options => ({
             // fetch: 'exports?self.fetch!whatwg-fetch',
             Immutable: 'immutable',
             moment: 'moment'
+        }),
+        new HtmlWebpackPlugin({
+            inject: 'body',
         }),
     ].concat(options.plugins),
     resolve: {
