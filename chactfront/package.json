@@ -82,9 +82,9 @@
     "test": "mocha --compilers   js:babel-core/register --recursive  src/**/*.test.js --reporter mochawesome   --growl",
     "start": "cross-env NODE_ENV=development  node server",
     "setup": "npm install&&npm run dll",
-    "dll": "webpack --display-chunks --color --config internals/webpack/webpack.dll.js",
+    "dll": "webpack --display-chunks --color --config webpack/webpack.dll.js",
     "prod": "sudo npm run build && npm run start:prod",
-    "build": "webpack --display-chunks --color --config internals/webpack/webpack.prod.js",
+    "build": "webpack --display-chunks --color --config webpack/webpack.prod.js",
     "start:prod": "cross-env NODE_ENV=production  node server"
   },
   "keywords": [],

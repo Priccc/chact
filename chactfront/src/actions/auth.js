@@ -8,6 +8,11 @@ export const REQUEST_LOGIN = Symbol.for('登录请求');
 export const REQUEST_LOGIN_SUCCESS = Symbol.for('登录请求成功');
 export const REQUEST_LOGIN_FAIL = Symbol.for('登录请求失败');
 
+
+export function storageAuth(uid) {
+    localStorage.setItem('uid', JSON.stringify(uid));
+}
+
 export function requestSignup(query){
     return (dispatch,getState) =>{
         const promise = dispatch({
@@ -31,6 +36,10 @@ export function requestLogin(query){
         const promise = dispatch({
             types:[REQUEST_LOGIN,REQUEST_LOGIN_SUCCESS,REQUEST_LOGIN_FAIL],
             api: action => action('/user/login', 'post', query),
+        })
+        promise.then(result=>{
+            const uid = result.uid;
+            storageAuth(uid);
         })
         return promise;
     }
