@@ -8,26 +8,28 @@
  const config = require('./config');//全局配置
  var server = require('http').Server(app);
  var io = require('socket.io')(server);
- const controller = require('./controller');
 
  let port = process.env.PORT || 8086;
 //设置跨域访问
 
-// app.all('*', function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-//     res.header("X-Powered-By",' 3.2.1')
-//     res.header("Content-Type", "application/json;charset=utf-8");
-//     next();
-// });
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());// 调用bodyParser模块以便程序正确解析body传入值
 
 app.use(morgan('dev'));// 命令行中显示程序运行日志,便于bug调试
-console.log(__dirname)
 app.use(express.static(path.resolve(__dirname, '../public/'))); // 静态文件
+
+io.on( "connection", function( socket ){
+    console.log( "一个新连接" ); 
+});
 
 app.use('/api',routes);//路由传入
 

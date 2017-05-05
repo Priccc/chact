@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+// var onlineUser = {}
+// var server = require('http').createServer(app)
+// var io = require('socket.io').listen(server)
 
 // 任何路由的每次request都执行
 router.use(function(req, res, next) {
@@ -15,5 +18,10 @@ router.use(function(req, res, next) {
 
 router.use('/user', require('./user'));
 router.use('/group', require('./group'));
+
+// io.sockets.on('connection', function (socket) {
+//     console.log(123);
+// }
+
 
 module.exports = router;

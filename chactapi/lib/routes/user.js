@@ -59,8 +59,11 @@ router.post('/login',(req,res) =>{
     }
   })
 })
-router.post('/test',(req,res) =>{
+//获取用户所有群聊的信息
+router.post('/getGroup',async (req,res) =>{
  // return
+ const group = await UserModel.getUserGroup(req.body.username);
+ return res.json({group});
 })
 
 //创建新群聊
@@ -96,6 +99,8 @@ router.post('/createGroup',async (req,res) =>{
     return res.json({success:true,result:{success_id:2000,message:'操作失败'}})
   }
 })
+
+
 router.get('/',(req,res)=>{
   return res.json({message:'success'})
 })

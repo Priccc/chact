@@ -16,7 +16,7 @@ class Chart extends Component {
         this.closeModal = this.closeModal.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-          condition:'solution',
+          condition:'message',
           showSetting: false,
           themeChange:false,
           theme:1
@@ -98,6 +98,19 @@ class Chart extends Component {
             {
               condition == 'message' ?
                 <div className='list'>
+                  <Menu className='friend-list'
+                    onClick={this.handleClick}
+                    defaultSelectedKeys={['1']}
+                    defaultOpenKeys={['group']}
+                    mode="inline"
+                  >
+                    <SubMenu key="group" title={<span>我的群聊</span>}>
+                      <Menu.Item key="9" className='item'>Option 9</Menu.Item>
+                      <Menu.Item key="10" className='item'>Option 10</Menu.Item>
+                      <Menu.Item key="11" className='item'>Option 11</Menu.Item>
+                      <Menu.Item key="12" className='item'>Option 12</Menu.Item>
+                    </SubMenu>
+                  </Menu>
                 </div> :
                 <div className='list'>
                   <Menu className='friend-list'
