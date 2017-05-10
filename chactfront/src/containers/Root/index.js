@@ -13,9 +13,9 @@ class Root extends Component {
         let uid = localStorage.getItem('uid');
         uid = uid && JSON.parse(uid);
 
-    if (!uid) {
-      push('/auth/login');
-  }
+        if (!uid) {
+        push('/auth/login');
+        }
     }
     render() {
         return (

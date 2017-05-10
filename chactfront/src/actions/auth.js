@@ -1,3 +1,6 @@
+// import io from 'socket.io-client';
+// const socket = io();
+
 export const REQUEST_SIGNUP = Symbol.for('注册请求');
 export const REQUEST_SIGNUP_SUCCESS = Symbol.for('注册请求成功');
 export const REQUEST_SIGNUP_FAIL = Symbol.for('注册请求失败');
@@ -35,7 +38,7 @@ export function requestLogin(query){
     return (dispatch,getState) =>{
         const promise = dispatch({
             types:[REQUEST_LOGIN,REQUEST_LOGIN_SUCCESS,REQUEST_LOGIN_FAIL],
-            api: action => action('/user/login', 'post', query),
+            api: action => action('/login', 'post', query),
         })
         promise.then(result=>{
             const uid = result.uid;
@@ -44,3 +47,11 @@ export function requestLogin(query){
         return promise;
     }
 }
+
+// export function connect(socket){
+//     return new Promise(resolve => {
+//      socket.post('/user', response => {
+//                 resolve(response);
+//             });
+//     })
+// }
