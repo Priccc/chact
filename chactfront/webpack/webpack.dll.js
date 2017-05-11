@@ -14,6 +14,7 @@ const vendors = [
   'moment',
   'lodash',
   'react-addons-perf',
+  'socket.io-client',
 ];
 module.exports = {
   context: process.cwd(),

@@ -97,6 +97,6 @@ module.exports = function (router, io) {
     })
   })
   io.on('connection',function(socket){
-    socket.emit('open')
+    socket.emit('message', 'dogs')
   })
 };
