@@ -12,9 +12,8 @@ class Root extends Component {
         const { push, replace, saveAuth, requestGsv001 } = this.props;
         let uid = localStorage.getItem('uid');
         uid = uid && JSON.parse(uid);
-
         if (!uid) {
-        push('/auth/login');
+            push('/auth/login');
         }
     }
     render() {

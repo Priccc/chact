@@ -1,7 +1,7 @@
 const UserModel = require('./models/User');
 const GroupModel = require('./models/Group');
 
-module.exports = function (router, io) {
+module.exports = function (router,socket) {
   //查询用户名是否存在
   router.post('/findByName', (req, res) => {
     UserModel.findOne({
@@ -95,8 +95,5 @@ module.exports = function (router, io) {
         }
       }
     })
-  })
-  io.on('connection',function(socket){
-    socket.emit('message', 'dogs')
   })
 };

@@ -1,6 +1,4 @@
-// import io from 'socket.io-client';
-// const socket = io();
-
+import socket from 'store/socket';
 export const REQUEST_SIGNUP = Symbol.for('注册请求');
 export const REQUEST_SIGNUP_SUCCESS = Symbol.for('注册请求成功');
 export const REQUEST_SIGNUP_FAIL = Symbol.for('注册请求失败');
@@ -43,15 +41,10 @@ export function requestLogin(query){
         promise.then(result=>{
             const uid = result.uid;
             storageAuth(uid);
+            socket.emit('login',()=>{
+                console.log('登录成功')
+            })
         })
         return promise;
     }
 }
-
-// export function connect(socket){
-//     return new Promise(resolve => {
-//      socket.post('/user', response => {
-//                 resolve(response);
-//             });
-//     })
-// }

@@ -7,12 +7,10 @@ import Immutable from 'immutable'
 import moment from 'moment'
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
-import io from 'socket.io-client';
+import socket from 'store/socket';
 import configureStore from './store';
 import route from './routes';
-// import './components/Style/iconfont/ic
 import 'antd/dist/antd.css';
-const socket = io.connect('http://localhost:8086');
 const store = configureStore(Immutable.Map());
 const history = syncHistoryWithStore(hashHistory, store, {
     selectLocationState(state) {
@@ -24,6 +22,9 @@ class App extends Component {
         super(props);
     }
     componentWillMount() {
+        socket.emit('connection', () => {
+            console.log('connect');
+        })
         socket.on('message', (message) => {
             console.log(message);
         })
