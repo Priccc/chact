@@ -82,7 +82,8 @@ module.exports = function (router, socket) {
             success: true,
             result: {
               message: '认证成功',
-              uid: user._id
+              uid: user._id,
+              username:user.username
             }
           });
         } else {
@@ -93,6 +94,26 @@ module.exports = function (router, socket) {
             }
           });
         }
+      }
+    })
+  })
+  //查找某用户所有的群聊
+  router.post('/getGroup',async(req,res) =>{
+    const groups = await UserModel.getUserGroup(req.body.username);
+    let groupList = [];
+    if(groups.groups && groups.groups.length){
+      groups.groups.map(value=>{
+        groupList.push({
+          _id:value._id,
+          groupname:value.groupname
+        })
+        return groupList;
+      })
+    }
+    return res.json({
+      success:true,
+      result:{
+        group: groupList
       }
     })
   })
@@ -167,4 +188,5 @@ module.exports = function (router, socket) {
       })
     }
   })
+
 };

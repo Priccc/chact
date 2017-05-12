@@ -1,4 +1,4 @@
-import {INIT,CHANGE_ENV,MODIFY_PROPS} from 'actions/test'
+// import {INIT,CHANGE_ENV,MODIFY_PROPS} from 'actions/test'
 
 const dateToFormatStr = date => {
   const Y = date.getFullYear() + '';
@@ -9,17 +9,17 @@ const dateToFormatStr = date => {
 
 export default (state = Immutable.Map(), action) => {
     switch (action.type) {
-        case INIT: {
-            return state.merge(Immutable.fromJS({
-                time: [dateToFormatStr(new Date())],
-                env: 'online',
-                err_id: '200000'
-            }))
-        }
-        case MODIFY_PROPS: {
-            const {query} = action;
-            return state.merge(Immutable.fromJS(query))
-        }
+        // case INIT: {
+        //     return state.merge(Immutable.fromJS({
+        //         time: [dateToFormatStr(new Date())],
+        //         env: 'online',
+        //         err_id: '200000'
+        //     }))
+        // }
+        // case MODIFY_PROPS: {
+        //     const {query} = action;
+        //     return state.merge(Immutable.fromJS(query))
+        // }
         default: {
             return state;
         }

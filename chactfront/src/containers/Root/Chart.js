@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {Menu,Icon ,Input ,Modal} from 'antd';
+import {getGroup} from 'actions/user';
 import './style.scss'
 const Search = Input.Search;
 const SubMenu = Menu.SubMenu;
@@ -22,9 +23,14 @@ class Chart extends Component {
           theme:1
         };
     }
-    // componentWillMount() {
-    //     this.props.test();
-    // }
+    componentWillMount() {
+      const {auth,getGroup} = this.props;
+      // console.log(localStorage.getItem('uid'));
+      // localStorage.removeItem('uid');
+      // console.log(localStorage.getItem('uid'));
+
+      getGroup(auth.get('username'));
+    }
     settingShow(){
       const that = this;
       this.setState({
@@ -164,10 +170,16 @@ class Chart extends Component {
 }
 function mapStateToProps(state) {
   const app = state.get('app');
-  return { app }
+  const auth = state.get('auth');
+  return {
+    app,
+    auth
+  }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({}, dispatch)
+  return bindActionCreators({
+    getGroup
+  }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chart)

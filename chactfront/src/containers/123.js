@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { test } from 'actions/test';
+// import { test } from 'actions/test';
 import styles from './style'
 
 class Help extends Component {
