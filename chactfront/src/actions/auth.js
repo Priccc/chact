@@ -18,7 +18,7 @@ export function requestSignup(query){
     return (dispatch,getState) =>{
         const promise = dispatch({
             types:[REQUEST_SIGNUP,REQUEST_SIGNUP_SUCCESS,REQUEST_SIGNUP_FAIL],
-            api: action => action('/user/signup', 'post', query),
+            api: action => action('/signup', 'post', query),
         })
         return promise;
     }
@@ -27,7 +27,7 @@ export function requestFindByName(query){
     return (dispatch,getState) =>{
         const promise = dispatch({
             types:[REQUEST_FINDBYNAME,REQUEST_FINDBYNAME_SUCCESS,REQUEST_FINDBYNAME_FAIL],
-            api: action => action('/user/findByName', 'post', query),
+            api: action => action('/findByName', 'post', query),
         })
         return promise;
     }

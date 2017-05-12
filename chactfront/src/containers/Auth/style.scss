@@ -59,13 +59,12 @@
             @include flexbox;
             justify-content: space-between;
             padding: 10px 50px;
-            a:link,
-            a:visited {
+            .jumpBtn{
+                border: none;
                 color: #c5c5c5;
-            }
-            a:hover,
-            a:active {
-                color: #5b8bf6;
+                &:hover,&:active{
+                    color: #5b8bf6;
+                }
             }
         }
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button ,Input ,Icon ,Message} from 'antd';
+import { Button ,Input ,Icon ,message} from 'antd';
 import {requestLogin} from 'actions/auth'
 import './style'
 import {push} from 'react-router-redux'
@@ -17,11 +17,12 @@ class Login extends Component {
             password:this.refs.password.refs.input.value
         }).then(()=>{
             this.props.push('/')
-        }).catch(()=>{
-            Message.error('登录失败')
+        }).catch((result)=>{
+            message.error(result.message)
         })
     }
     render() {
+        const { push } = this.props;
         return (
             <div className='login formCon'>
                 <h1 className='formTitle'>Login Form</h1>
@@ -39,8 +40,8 @@ class Login extends Component {
                 </div>
                 <Button className='submitBtn' onClick={this.login}>Login</Button>
                 <div className='link'>
-                    <a href="#">Lost password</a>
-                    <a href="http://localhost:8087/#/auth/register">Register</a>
+                    <Button className='jumpBtn' onClick={push.bind(this,'/')}>Lost password</Button>
+                    <Button className='jumpBtn' onClick={push.bind(this,'/auth/register')}>Register</Button>
                 </div>
             </div>
         );

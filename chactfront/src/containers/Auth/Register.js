@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, Input, Radio, DatePicker, Message } from 'antd';
+import { Button, Input, Radio, DatePicker, message } from 'antd';
 import './style';
 import { requestSignup, requestFindByName } from 'actions/auth';
 import { push } from 'react-router-redux'
@@ -134,16 +134,17 @@ class Register extends Component {
             usernameError, passwordError, confirmPassError, emailError
         } = this.state;
         if (usernameError.state || passwordError.state || confirmPassError.state || emailError.state) {
-            Message.error('您提交的信息中有错误，请检查');
+            message.error('您提交的信息中有错误，请检查');
             return;
         } else {
-            this.props.requestSignup({ username, password, sex, birthday, email, address }).then(() => {
-                Message.success('注册成功，将会帮您跳转到登录页面');
+            this.props.requestSignup({ username, password, sex, birthday, email, address })
+            .then(()=>{
+                message.success('注册成功，将会帮您跳转到登录页面');
                 setTimeout(() => {
                     this.props.push('/auth/login');
                 }, 2000);
-            }).catch(() => {
-                Message.error('注册失败')
+            }).catch((err)=>{
+                message.error('注册失败')
             })
         }
     }

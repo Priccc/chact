@@ -1,7 +1,7 @@
 const UserModel = require('./models/User');
 const GroupModel = require('./models/Group');
 
-module.exports = function (router,socket) {
+module.exports = function (router, socket) {
   //查询用户名是否存在
   router.post('/findByName', (req, res) => {
     UserModel.findOne({
@@ -95,5 +95,76 @@ module.exports = function (router,socket) {
         }
       }
     })
+  })
+  //创建新群聊
+  router.post('/createGroup', async(req, res) => {
+    const user = await UserModel.getUser(req.body.username);
+    if (user) {
+      if (req.body.action == 1) {
+        var newGroup = new GroupModel({groupname: req.body.groupname});
+        try {
+          user
+            .groups
+            .push(newGroup);
+          user.save();
+          newGroup.save();
+          return res.json({
+            success: true,
+            result: {
+              success_id: 1000,
+              message: '新建群聊成功'
+            }
+          })
+        } catch (err) {
+          return res.json({
+            success: true,
+            result: {
+              success_id: 2000,
+              message: '操作失败'
+            }
+          })
+        }
+      } else {
+        try {
+          if (user.groups.indexOf(req.body._id) == -1) {
+            user
+              .groups
+              .push(req.body._id);
+            user.save();
+            return res.json({
+              success: true,
+              result: {
+                success_id: 1000,
+                message: '加入群聊成功'
+              }
+            })
+          } else {
+            return res.json({
+              success: false,
+              result: {
+                success_id: 1001,
+                message: '当前群聊已加入'
+              }
+            })
+          }
+        } catch (err) {
+          return res.json({
+            success: false,
+            result: {
+              success_id: 2000,
+              message: '操作失败'
+            }
+          })
+        }
+      }
+    } else {
+      return res.json({
+        success: true,
+        result: {
+          success_id: 2000,
+          message: '操作失败'
+        }
+      })
+    }
   })
 };
