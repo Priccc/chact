@@ -27,7 +27,7 @@ class App extends Component {
         })
         socket.emit('disconnect', () => {
           console.log('duankai');
-            localStorage.removeItem('uid');
+            sessionStorage.clear();
         })
         socket.on('message', (message) => {
             console.log(message);

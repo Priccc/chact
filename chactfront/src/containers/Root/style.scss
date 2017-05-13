@@ -28,12 +28,10 @@
                 font-size: 30px;
                 line-height: 30px;
                 color: #8a8888;
-                &.active{
-                  color: #af6fef;
-                }
             }
         }
         .left{
+          position: relative;
             flex: 0 0 240px;
             .left-title{
                 height: 70px;
@@ -85,6 +83,7 @@
             }
             .search{
               @include flexbox;
+              margin-bottom: 10px;
               justify-content: center;
               align-items: center;
               .iconfont{
@@ -94,28 +93,41 @@
                 color: #d9d9d9;
               }
             }
-            .list{
+            .left-main{
+              .list{
                 .item{
-                    padding: 5px 0;
-                    padding-left: 40px !important; 
-                    height:40px;
-                    line-height: 30px;
-                    overflow: hidden;
-                    .item-img{
-                        display: block;
-                        float: left;
-                        margin-right: 8px;
-                        @include size(30px,30px);
-                        border-radius: 50%;
-                    }
+                  padding: 5px 0;
+                  padding-left: 40px !important;
+                  height:40px;
+                  line-height: 30px;
+                  overflow: hidden;
+                  .item-img{
+                      display: block;
+                      float: left;
+                      margin-right: 8px;
+                      @include size(30px,30px);
+                      border-radius: 50%;
+                  }
                 }
                 .friend-list{
-                    background: transparent;
-                    .ant-menu-submenu > .ant-menu {
-                        background-color: transparent;
-                    }
-
+                  background: transparent;
+                  .ant-menu-submenu > .ant-menu {
+                      background-color: transparent;
+                  }
                 }
+              }
+              .error{
+                margin-top: 200px;
+                text-align: center;
+                color: #8a8888;
+              }
+            }
+            .ant-spin{
+              position: absolute;
+              left: 50%;
+              top:50%;
+              margin-left: -10px;
+              margin-left: -10px;
             }
         }
         .center{
@@ -143,9 +155,8 @@
                 border: 3px solid #f5be6b;
             }
         }
-    } 
+    }
 }
 .activeTheme{
     border: 3px solid #5788d9 !important;
 }
-

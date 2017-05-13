@@ -1,17 +1,26 @@
 import socket from 'store/socket';
-export const REQUEST_SIGNUP = Symbol.for('注册请求');
-export const REQUEST_SIGNUP_SUCCESS = Symbol.for('注册请求成功');
-export const REQUEST_SIGNUP_FAIL = Symbol.for('注册请求失败');
-export const REQUEST_FINDBYNAME = Symbol.for('查找用户名');
-export const REQUEST_FINDBYNAME_SUCCESS = Symbol.for('查找用户名成功');
-export const REQUEST_FINDBYNAME_FAIL = Symbol.for('查找用户名失败');
-export const REQUEST_LOGIN = Symbol.for('登录请求');
-export const REQUEST_LOGIN_SUCCESS = Symbol.for('登录请求成功');
-export const REQUEST_LOGIN_FAIL = Symbol.for('登录请求失败');
+export const REQUEST_SIGNUP = 'REQUEST_SIGNUP';
+export const REQUEST_SIGNUP_SUCCESS = 'REQUEST_SIGNUP_SUCCESS';
+export const REQUEST_SIGNUP_FAIL = 'REQUEST_SIGNUP_FAIL';
+export const REQUEST_FINDBYNAME = 'REQUEST_FINDBYNAME';
+export const REQUEST_FINDBYNAME_SUCCESS = 'REQUEST_FINDBYNAME_SUCCESS';
+export const REQUEST_FINDBYNAME_FAIL = 'REQUEST_FINDBYNAME_FAIL';
+export const REQUEST_LOGIN = 'REQUEST_LOGIN';
+export const REQUEST_LOGIN_SUCCESS = 'REQUEST_LOGIN_SUCCESS';
+export const REQUEST_LOGIN_FAIL = 'REQUEST_LOGIN_FAIL';
+export const REQUEST_AUTH_INIT = 'REQUEST_AUTH_INIT';
 
 
-export function storageAuth(uid) {
-    localStorage.setItem('uid', JSON.stringify(uid));
+function storageAuth(auth) {
+    sessionStorage.setItem('auth', JSON.stringify(auth));
+}
+export function requestAuthInit(){
+  return (dispatch,getState) =>{
+    const promise = dispatch({
+     type: REQUEST_AUTH_INIT,
+    })
+    return promise;
+  }
 }
 
 export function requestSignup(query){
@@ -39,8 +48,10 @@ export function requestLogin(query){
             api: action => action('/login', 'post', query),
         })
         promise.then(result=>{
-            const uid = result.uid;
-            storageAuth(uid);
+            storageAuth({
+              uid:result.uid,
+              username:result.username
+            });
             socket.emit('login',()=>{
                 console.log('登录成功')
             })

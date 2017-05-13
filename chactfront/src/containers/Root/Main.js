@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Menu,Icon ,Input ,Modal} from 'antd';
+import {Menu,Icon ,Input ,Modal,Spin} from 'antd';
 import {getGroup} from 'actions/user';
+import Chact from './Chact'
 import './style.scss'
 const Search = Input.Search;
 const SubMenu = Menu.SubMenu;
 
-class Chart extends Component {
+class Main extends Component {
     constructor(props){
         super(props);
-        this.handleChange = this.handleChange.bind(this);
         this.settingShow = this.settingShow.bind(this);
         this.changeTheme = this.changeTheme.bind(this);
         this.showModal = this.showModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.handleClick = this.handleClick.bind(this);
         this.state = {
-          condition:'message',
           showSetting: false,
           themeChange:false,
           theme:1
@@ -25,10 +23,6 @@ class Chart extends Component {
     }
     componentWillMount() {
       const {auth,getGroup} = this.props;
-      // console.log(localStorage.getItem('uid'));
-      // localStorage.removeItem('uid');
-      // console.log(localStorage.getItem('uid'));
-
       getGroup(auth.get('username'));
     }
     settingShow(){
@@ -57,23 +51,18 @@ class Chart extends Component {
         [val]:true
       })
     }
-    handleChange(val){
-      this.setState({condition:val});
-    }
-    handleClick(e){
- //     console.log('click ', e);
-    }
     render() {
-      const { condition, showSetting, theme, themeChange} = this.state;
+      const { showSetting, theme, themeChange} = this.state;
+      const { allGroup } = this.props;
+      if(!allGroup){
+        return false;
+      }
       const img = require('source/photo.jpg');
       return (
         <div className={`chart theme${theme}`}>
           <div className='aside'>
             <img src={img} className='photo' />
-            <Icon type="message" className={`iconfont${condition == 'message' ? ' active' : ''}`}
-              onClick={this.handleChange.bind(this, 'message')} />
-            <Icon type="solution" className={`iconfont${condition == 'solution' ? ' active' : ''}`}
-              onClick={this.handleChange.bind(this, 'solution')} />
+            <Icon type="usergroup-add" className='iconfont'/>
           </div>
           <div className='left'>
             <div className='left-title'>
@@ -99,53 +88,42 @@ class Chart extends Component {
               }
             </div>
             <div className='search'>
-              <Search placeholder="搜索" style={{ width: 230 }} onSearch={value => console.log(value)} />
+              <Search placeholder="搜索群聊加入" style={{ width: 200 }} onSearch={value => console.log(value)} />
             </div>
             {
-              condition == 'message' ?
-                <div className='list'>
-                  <Menu className='friend-list'
-                    onClick={this.handleClick}
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['group']}
-                    mode="inline"
-                  >
-                    <SubMenu key="group" title={<span>我的群聊</span>}>
-                      <Menu.Item key="9" className='item'>Option 9</Menu.Item>
-                      <Menu.Item key="10" className='item'>Option 10</Menu.Item>
-                      <Menu.Item key="11" className='item'>Option 11</Menu.Item>
-                      <Menu.Item key="12" className='item'>Option 12</Menu.Item>
-                    </SubMenu>
-                  </Menu>
-                </div> :
-                <div className='list'>
-                  <Menu className='friend-list'
-                    onClick={this.handleClick}
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
-                    mode="inline"
-                  >
-                    <SubMenu key="sub1" title={<span>我的好友</span>}>
-                      <Menu.Item key="5" className='item'>
-                          <img src={img} className='item-img' />
-                          <p>admin</p>
-                      </Menu.Item>
-                      <Menu.Item key="6"  className='item'>
-                          <img src={img} className='item-img' />
-                          <p>admin</p>
-                      </Menu.Item>
-                    </SubMenu>
-                    <SubMenu key="sub2" title={<span>我的群聊</span>}>
-                      <Menu.Item key="9" className='item'>Option 9</Menu.Item>
-                      <Menu.Item key="10" className='item'>Option 10</Menu.Item>
-                      <Menu.Item key="11" className='item'>Option 11</Menu.Item>
-                      <Menu.Item key="12" className='item'>Option 12</Menu.Item>
-                    </SubMenu>
-                  </Menu>
-                </div>
+              allGroup.get('loading') ? <Spin /> :
+              <div className='left-main'>
+                {
+                  allGroup.get('success') ?
+                  <div className='list'>
+                    <Menu className='friend-list' defaultOpenKeys={['group']}  mode="inline">
+                      <SubMenu key="sub1" title={<span>我的好友</span>}>
+                        <Menu.Item key="5" className='item'>
+                            <img src={img} className='item-img' />
+                            <p>admin</p>
+                        </Menu.Item>
+                        <Menu.Item key="6"  className='item'>
+                            <img src={img} className='item-img' />
+                            <p>admin</p>
+                        </Menu.Item>
+                      </SubMenu>
+                      <SubMenu key="group" title={<span>我的群聊</span>}>
+                        {allGroup.get('group').size &&
+                          allGroup.get('group').map((value,index)=>{
+                            return <Menu.Item key={`group${index}`} className='item'>{value.get('groupname')}</Menu.Item>
+                          })
+                        }
+                      </SubMenu>
+                    </Menu>
+                  </div>
+                  :<div className='error'>哎呀，出错了呢，请稍后重试  ^o^</div>
+                }
+              </div>
             }
           </div>
-          <div className='center'></div>
+          <div className='center'>
+            {this.props.children}
+          </div>
           <Modal visible={themeChange} width={455} closable footer={null} className='changeTheme'
             onCancel={this.closeModal.bind(this, 'themeChange')}>
             <p className='title'>主题</p>
@@ -169,11 +147,11 @@ class Chart extends Component {
     }
 }
 function mapStateToProps(state) {
-  const app = state.get('app');
   const auth = state.get('auth');
+  const allGroup = state.getIn(['app','allGroup']);
   return {
-    app,
-    auth
+    auth,
+    allGroup
   }
 }
 function mapDispatchToProps(dispatch) {
@@ -182,4 +160,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chart)
+export default connect(mapStateToProps, mapDispatchToProps)(Main)

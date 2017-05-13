@@ -5,14 +5,15 @@ import { bindActionCreators } from 'redux';
 // import { test } from 'actions/test';
 import styles from './style'
 
-class Help extends Component {
+class Chact1 extends Component {
     // componentWillMount() {
     //     this.props.test();
     // }
     render() {
         return (
             <div>
-                This is Help.
+              {this.props.children}
+                This is Chact.
             </div>
         );
     }
@@ -22,7 +23,9 @@ function mapStateToProps(state) {
     return { app }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ test }, dispatch)
+    return bindActionCreators({
+
+    }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CSSModules(Help, styles))
+export default connect(mapStateToProps, mapDispatchToProps)(Chact1)

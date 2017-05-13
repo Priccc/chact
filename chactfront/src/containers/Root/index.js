@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
+import { requestAuthInit } from 'actions/auth';
 import './style.scss'
 
 class Root extends Component {
@@ -9,12 +10,14 @@ class Root extends Component {
         super(props);
     }
     componentWillMount() {
-        const { push, replace, saveAuth, requestGsv001 } = this.props;
-        let uid = localStorage.getItem('uid');
-        uid = uid && JSON.parse(uid);
-        if (!uid) {
+        const { push, requestAuthInit } = this.props;
+        let auth = sessionStorage.getItem('auth');
+        auth = auth && JSON.parse(auth);
+        if (!auth) {
             push('/auth/login');
+            return false;
         }
+        requestAuthInit();
     }
     render() {
         return (
@@ -30,7 +33,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        push
+        push,
+        requestAuthInit
     }, dispatch)
 }
 
